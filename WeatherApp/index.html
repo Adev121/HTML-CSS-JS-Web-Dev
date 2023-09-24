@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@500&family=Caveat:wght@500&family=Manrope:wght@500&family=Pacifico&family=Poppins:wght@400;500;600&family=Roboto&family=Rubik:ital,wght@0,300;0,500;1,800&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <title>WeatherApp</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="search">
+        <input class="cityName" type="text" spellcheck="false" placeholder="Enter City" />
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="weather">
+        <img
+          src="https://imageupload.io/ib/wZ9TeLovpPtrhFY_1695485534.png"
+          alt="weather"
+        />
+        <h1 class="temp">--°C</h1>
+        <h2 class="city">--</h1>
+        <div class="details">
+          <div class="col">
+              <h2>Humidity</h2>
+              <img class="wind_icon" src="https://imageupload.io/ib/UCxYY2G1QJd3ZzS_1695486085.png" alt="img1">
+            <p class="humidity">--%</p>
+            
+          </div>
+          <div class="col">
+              <h2>Wind Speed</h2>
+              <img class="humid_icon" src="https://imageupload.io/ib/t3zOEYOltaPaB4k_1695486085.png" alt="img1">
+              <p class="wind">-- Km/Hr</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+  // const apikey = '278c0956e1b7686b92a6c05cff3ce8ec';
+  // const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?&units=metric&q=';
+  // const searchBox=document.querySelector(".search input");
+  // const searchBtn=document.querySelector(".search button");
+
+  // console.log(apiUrl+city+`&appid=${apikey}`);
+
+  // async function checkWeather(city) {
+  //   const response= await fetch(apiUrl+ city +`&appid=${apikey}`);
+  //   var data = await response.json();
+  //   console.log(data);
+  //   document.querySelector(".city").innerHTML= data.name;
+  //   document.querySelector(".temp").innerHTML= (data.main.temp+" "+"°C");
+  //   document.querySelector(".humidity").innerHTML= (data.main.humidity+" "+"%");
+  //   document.querySelector(".wind").innerHTML= (data.wind.speed+" "+"Km/Hr");
+  // }
+  // searchBtn.addEventListener("click",()=>{
+  //   checkWeather(searchBox.value);
+  // })
+  ///////////////////Updated code /////////////////////
+  const apikey = '278c0956e1b7686b92a6c05cff3ce8ec';
+const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?&units=metric&q=';
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+var cityElement = document.querySelector(".city");
+const tempElement = document.querySelector(".temp");
+const humidityElement = document.querySelector(".humidity");
+const windElement = document.querySelector(".wind");
+
+async function checkWeather(city) {
+  try {
+    const response = await fetch(apiUrl + city + `&appid=${apikey}`);
+    if (!response.ok) {
+      throw new Error('Weather data not found for this city.');
+    }
+    const data = await response.json();
+    console.log(data);
+    cityElement.textContent = `${data.name}`;
+    // cityElement.innerHTML = data.name; //both are correct
+    tempElement.textContent = `${data.main.temp} °C`;
+    humidityElement.textContent = `${data.main.humidity} %`;
+    windElement.textContent = `${data.wind.speed} Km/Hr`;
+  } catch (error) {
+    console.error(error);
+    cityElement.textContent = 'City not found';
+    tempElement.textContent = '-- °C';
+    humidityElement.textContent = '-- %';
+    windElement.textContent = '-- Km/Hr';
+  }
+}
+
+searchBtn.addEventListener("click", () => {
+  checkWeather(searchBox.value);
+});
+  
+  </script>
+</html>
