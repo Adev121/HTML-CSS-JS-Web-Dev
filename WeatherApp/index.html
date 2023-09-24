@@ -22,7 +22,7 @@
       </div>
       <div class="weather">
         <img
-          src="https://imageupload.io/ib/wZ9TeLovpPtrhFY_1695485534.png"
+          src="https://imageupload.io/ib/wZ9TeLovpPtrhFY_1695485534.png" class="weatherImg"
           alt="weather"
         />
         <h1 class="temp">--°C</h1>
@@ -64,10 +64,11 @@
   //   checkWeather(searchBox.value);
   // })
   ///////////////////Updated code /////////////////////
-  const apikey = '278c0956e1b7686b92a6c05cff3ce8ec';
+const apikey = '278c0956e1b7686b92a6c05cff3ce8ec';
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?&units=metric&q=';
 const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
+const weatherIcon=document.querySelector(".weatherImg");
 var cityElement = document.querySelector(".city");
 const tempElement = document.querySelector(".temp");
 const humidityElement = document.querySelector(".humidity");
@@ -81,6 +82,36 @@ async function checkWeather(city) {
     }
     const data = await response.json();
     console.log(data);
+    if (data.weather[0].main=='Clouds')
+{
+  weatherIcon.src="images/cloudy.png";
+}
+else
+if(data.weather[0].main=='Clear')
+{
+  weatherIcon.src="images/sunny.png";
+}
+else
+if(data.weather[0].main=='Rain')
+{
+  weatherIcon.src="images/sunny.png";
+}
+else
+if(data.weather[0].main=='Drizzle')
+{
+  weatherIcon.src="images/drizzle.png";
+}
+else
+if(data.weather[0].main=='Mist')
+{
+  weatherIcon.src="images/fog.png";
+}
+else
+if(data.weather[0].main=='Haze')
+{
+  weatherIcon.src="images/haze.png";
+}
+
     cityElement.textContent = `${data.name}`;
     // cityElement.innerHTML = data.name; //both are correct
     tempElement.textContent = `${data.main.temp} °C`;
@@ -94,6 +125,7 @@ async function checkWeather(city) {
     windElement.textContent = '-- Km/Hr';
   }
 }
+
 
 searchBtn.addEventListener("click", () => {
   checkWeather(searchBox.value);

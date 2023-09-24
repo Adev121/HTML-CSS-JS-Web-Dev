@@ -12,12 +12,12 @@ body {
   text-align: center;
   margin: 20px auto 0;
   padding: 40px 10px 40px 10px;
-  background: linear-gradient(#ffbc05, #ab7e02);
+  background: linear-gradient(45deg,#00a1ff, #00ff8f);
   border-radius: 20px;
 }
 .search {
   width: 100%;
-  border: 2px black solid;
+  /* border: 2px black solid; */
   display: flex;
   justify-content: center;
 }
